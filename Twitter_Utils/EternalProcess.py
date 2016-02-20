@@ -6,6 +6,7 @@ import json
 from SportsData import SportsData
 from DataGatherer import DataGatherer
 from KeywordGenerator import KeywordGenerator
+from Eternal_Utils.CommonUtils import CommonUtils
 
 
 class EternalProcess:
@@ -13,12 +14,12 @@ class EternalProcess:
         self.sports_data = SportsData()
         self.keyword_generator = KeywordGenerator()
         self.tick_time_in_seconds = 60.0
-        self.time_to_check_games_for_the_day = '09:30'
-        self.base_path = os.getcwd() + '/Twitter_Utils/data/daily-logs/'
-        self.APP_KEY = os.environ['TWITTER_APP_KEY']
-        self.APP_SECRET = os.environ['TWITTER_APP_SECRET']
-        self.OAUTH_TOKEN = os.environ['TWITTER_OAUTH_TOKEN']
-        self.OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
+        self.time_to_check_games_for_the_day = '18:43'
+        self.base_path = os.getcwd() + '/data/daily-logs/'
+        self.APP_KEY = CommonUtils.get_environ_variable('TWITTER_APP_KEY')
+        self.APP_SECRET = CommonUtils.get_environ_variable('TWITTER_APP_SECRET')
+        self.OAUTH_TOKEN = CommonUtils.get_environ_variable('TWITTER_OAUTH_TOKEN')
+        self.OAUTH_TOKEN_SECRET = CommonUtils.get_environ_variable('TWITTER_OAUTH_TOKEN_SECRET')
         self.stream_list = []
         self.end_times_list = []
 

@@ -1,6 +1,6 @@
-import os
 import urllib2
 import json
+from Eternal_Utils.CommonUtils import CommonUtils
 
 import datetime
 
@@ -10,11 +10,11 @@ from Proxy import ProxyHandler
 class OddsGeneration:
     def __init__(self):
         self.api_base_url = 'https://api.betfair.com/exchange/betting/json-rpc/v1'
-        self.APP_KEY_DELAYED = os.environ['BET_FAIR_APP_KEY_DELAYED']
-        self.APP_KEY = os.environ['BET_FAIR_APP_KEY_NONDELAYED']
+        self.APP_KEY_DELAYED = CommonUtils.get_environ_variable('BET_FAIR_APP_KEY_DELAYED')
+        self.APP_KEY = CommonUtils.get_environ_variable('BET_FAIR_APP_KEY_NONDELAYED')
         self.BET_FAIR_SESSION_TOKEN = ''
-        self.BET_FAIR_USERNAME = os.environ['BET_FAIR_USERNAME']
-        self.BET_FAIR_PASSWORD = os.environ['BET_FAIR_PASSWORD']
+        self.BET_FAIR_USERNAME = CommonUtils.get_environ_variable('BET_FAIR_USERNAME')
+        self.BET_FAIR_PASSWORD = CommonUtils.get_environ_variable('BET_FAIR_PASSWORD')
         self.api_call_headers = {}
 
     # TODO - We have to use a proxy to get this to work
