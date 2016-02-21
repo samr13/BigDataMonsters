@@ -70,33 +70,26 @@ class OddsGeneration:
         except urllib2.URLError:
             print 'No service found at ' + str(self.api_base_url)
 
-    def get_event_types(self):
+    def get_list_events_filtered(self, game):
+        self.get_session_key_and_set_headers()
+        json_request = '[{ "jsonrpc": "2.0", "method": "SportsAPING/v1.0/listEventTypes", ' \
+                       '"params": { "filter": { "textQuery":"' + game + '" } },"id": 1}]'
+        response = self.call_api(json_request)
+        return response
+
+    def get_particular_event_list(self, game_id):
         """
         Gets information for event types that bet-fair handles
         :return: returns json of events
         """
-        event_type_req = '{"jsonrpc": "2.0", "method": "SportsAPING/v1.0/listEventTypes", "params": {"filter":{ }}, "id": 1}'
-        print 'Calling listEventTypes to get event Type ID'
+        event_type_req = '[{"jsonrpc": "2.0","method": "SportsAPING/v1.0/listEvents","params": ' \
+                         '{"filter": {"eventTypeIds": ["' + game_id + '"], "marketStartTime": {"from": ' \
+                         '"2016-02-01T00:00:00Z","to": "2016-02-28T23:59:00Z"}}},"id": 1}]'
         response = self.call_api(event_type_req)
-        event_types_json = json.loads(response)
-    
-        try:
-            event_types = event_types_json['result']
-            return event_types
-        except:
-            print 'Error while trying to get event types: ' + str(event_types_json['error'])
+        event_list_json = json.loads(response)
 
-    def get_event_type_id_given_name(self, requested_event_type_name):
-        """
-        Input name get back event id
-        :param requested_event_type_name:
-        :return: id of event
-        """
-        event_types = self.get_event_types()
-        if event_types is not None:
-            for event in event_types:
-                event_type_name = event['eventType']['name']
-                if event_type_name == requested_event_type_name:
-                    return event['eventType']['id']
-        else:
-            print 'Error trying to get event type id with name input.'
+        try:
+            event_list = event_list_json[0]['result']
+            return event_list
+        except KeyError:
+            print 'Error while trying to get event types: ' + str(event_list_json['error'])
