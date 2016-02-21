@@ -15,7 +15,7 @@ class EternalProcess:
         self.keyword_generator = KeywordGenerator()
         self.tick_time_in_seconds = 60.0
         self.time_to_check_games_for_the_day = '18:43'
-        self.base_path = os.getcwd() + '/data/daily-logs/'
+        self.base_path = os.getcwd() + 'Twitter_Utils/data/daily-logs/'
         self.APP_KEY = CommonUtils.get_environ_variable('TWITTER_APP_KEY')
         self.APP_SECRET = CommonUtils.get_environ_variable('TWITTER_APP_SECRET')
         self.OAUTH_TOKEN = CommonUtils.get_environ_variable('TWITTER_OAUTH_TOKEN')
